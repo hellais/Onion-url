@@ -1,0 +1,34 @@
+Onion url human readable encoding schemes
+
+This software encodes onion urls into human readable urls made up
+of words.
+
+- otp.py
+This follows RFC2289 for OTP to trasform the 80 bit onion url
+into 7 words and a number. It achieves this by splitting 80 bits
+into 7 11 bit blocks + 1 3 bit block. On the 7 11 bit blocks we
+map each bit block with a word from the 2^11 big word list and the
+3 bit block to a maps of numbers from 1 to 8.
+
+example:
+- To mnemonic url -
+./otp2.py -o jv6g2ucbhrjcnwgi
+mnemonic url: anti-stan-bawd-fled-noll-fee-cant-1.onion
+
+- ... and back -
+./otp2.py -m anti-stan-bawd-fled-noll-fee-cant-1.onion
+onion url: jv6g2ucbhrjcnwgi.onion
+
+- pet.py
+Still to be implemented, but the main idea is to get a 2^11 long list of
+the first three letters of common english words. One can then generate a
+url that is made up of any word that starts with these three letters.
+example:
+THIs-CAN-BECome-THE-URL-FOR-THIs-SITe.onion
+
+in this case the search is only made on the characters THI,CAN,BEC,THE,URL,FOR,THI,SIT.
+
+Maybe it could be a good idea to create special cases for 2 and 1 letter words.
+
+
+
