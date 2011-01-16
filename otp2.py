@@ -263,6 +263,8 @@ class OTP:
     bkey = ["1","2","3","4","5","6","7","8"]
     protocol = ".onion"
 
+    # Give it 80 bits and get 7 words + 1 number separated by "-"
+    # and a trailing .onion
     def to_word(self,data):
         buf = bytearray(data)
         strbuf = []
@@ -285,6 +287,7 @@ class OTP:
         
         return ''.join([url[i] for i in range(0,8)])
     
+    # Give it the word url and recieve 80 bits of data
     def from_word(self, data):
         buf = data.split('-')
         y = []
@@ -301,9 +304,10 @@ class OTP:
         for i in range(0, 10):
             z.append(chr(int(string[i*8:i*8+8],2)))
         return ''.join(z)
+
 def usage():
     print "Onion OTP v0"
-    print "2010 - Arturo Filasto' <art@baculo.org>"
+    print "2011 - Arturo Filasto' <art@baculo.org>"
     print "gives you a mnemonic alternative to standard onion urls"
     print "-h \t this help message"
     print "-o <onion url> (ex. jv6g2ucbhrjcnwgi)"
