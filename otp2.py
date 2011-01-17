@@ -322,29 +322,37 @@ def main():
 
     mnemonic = ""
     onionurl = ""
-    
+    o = False
+
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             usage()
             sys.exit()
         elif opt in ("-o", "--onion"):
             onionurl = arg
+            o = True
         elif opt in ("-m", "--mnemonic"):
             mnemonic = arg
+            o = True
         a = OTP()
     
-        onionurl = onionurl.split('.')[0]    
-        if(onionurl):
-            if(len(onionurl) == 16):
-                print "mnemonic url: %s" % a.to_word(base64.b32decode(onionurl.upper()))
-            else:
-                print "invalid onion url length!"
+    if(o is False):
+        usage()
+        sys.exit()
 
-        if(mnemonic):
-            if(len(mnemonic.split('-')) == 8):
-                print "onion url: %s.onion" % base64.b32encode(a.from_word(mnemonic)).lower()
-            else:
-                print "invalid mnemonic format!"
+    onionurl = onionurl.split('.')[0]    
+
+    if(onionurl):
+        if(len(onionurl) == 16):
+            print "mnemonic url: %s" % a.to_word(base64.b32decode(onionurl.upper()))
+        else:
+            print "invalid onion url length!"
+
+    if(mnemonic):
+        if(len(mnemonic.split('-')) == 8):
+            print "onion url: %s.onion" % base64.b32encode(a.from_word(mnemonic)).lower()
+        else:
+            print "invalid mnemonic format!"
 
 if __name__ == "__main__":
     main()
