@@ -12,13 +12,14 @@ map each bit block with a word from the 2^11 big word list and the
 
 example:
 - To mnemonic url -
-./otp2.py -o jv6g2ucbhrjcnwgi
+./onionconv.py -o jv6g2ucbhrjcnwgi
 mnemonic url: anti-stan-bawd-fled-noll-fee-cant-1.onion
 
 - ... and back -
-./otp2.py -m anti-stan-bawd-fled-noll-fee-cant-1.onion
+./onionconv.py -m anti-stan-bawd-fled-noll-fee-cant-1.onion
 onion url: jv6g2ucbhrjcnwgi.onion
 
+TODO:
 - pet.py
 Still to be implemented, but the main idea is to get a 2^11 long list of
 the first three letters of common english words. One can then generate a
@@ -29,6 +30,5 @@ THIs-CAN-BECome-THE-URL-FOR-THIs-SITe.onion
 in this case the search is only made on the characters THI,CAN,BEC,THE,URL,FOR,THI,SIT.
 
 Maybe it could be a good idea to create special cases for 2 and 1 letter words.
-
 
 

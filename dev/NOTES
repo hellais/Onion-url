@@ -1,0 +1,15 @@
+These are the notes I am keeping to develop pet.py, the pet name generator.
+
+- knuth_words
+  The word list I am using.
+
+- top-gt4.txt
+  The first three characters of at least 4 words in knuth_words
+
+- read.py
+  The script used to generate top-gt4.txt
+
+- *.py
+  Some broken experiments. Please do not look at them (you would
+  be wasting your (precious?) time.
+

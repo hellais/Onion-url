@@ -1,9 +1,7 @@
 #!/usr/bin/python
-import base64
-import sys, getopt, os
 
-class OTP:
-    skey = ["A",     "ABE",   "ACE",   "ACT",   "AD",    "ADA",   "ADD",
+class otp:
+    skey = ("A",     "ABE",   "ACE",   "ACT",   "AD",    "ADA",   "ADD",
 "AGO",   "AID",   "AIM",   "AIR",   "ALL",   "ALP",   "AM",    "AMY",
 "AN",    "ANA",   "AND",   "ANN",   "ANT",   "ANY",   "APE",   "APS",
 "APT",   "ARC",   "ARE",   "ARK",   "ARM",   "ART",   "AS",    "ASH",
@@ -43,6 +41,7 @@ class OTP:
 "LIP",   "LIT",   "LO",    "LOB",   "LOG",   "LOP",   "LOS",   "LOT",
 "LOU",   "LOW",   "LOY",   "LUG",   "LYE",   "MA",    "MAC",   "MAD",
 "MAE",   "MAN",   "MAO",   "MAP",   "MAT",   "MAW",   "MAY",   "ME",
+
 "MEG",   "MEL",   "MEN",   "MET",   "MEW",   "MID",   "MIN",   "MIT",
 "MOB",   "MOD",   "MOE",   "MOO",   "MOP",   "MOS",   "MOT",   "MOW",
 "MUD",   "MUG",   "MUM",   "MY",    "NAB",   "NAG",   "NAN",   "NAP",
@@ -91,6 +90,7 @@ class OTP:
 "BEAT",  "BEAU",  "BECK",  "BEEF",  "BEEN",  "BEER",  "BEET",  "BELA",
 "BELL",  "BELT",  "BEND",  "BENT",  "BERG",  "BERN",  "BERT",  "BESS",
 "BEST",  "BETA",  "BETH",  "BHOY",  "BIAS",  "BIDE",  "BIEN",  "BILE",
+
 "BILK",  "BILL",  "BIND",  "BING",  "BIRD",  "BITE",  "BITS",  "BLAB",
 "BLAT",  "BLED",  "BLEW",  "BLOB",  "BLOC",  "BLOT",  "BLOW",  "BLUE",
 "BLUM",  "BLUR",  "BOAR",  "BOAT",  "BOCA",  "BOCK",  "BODE",  "BODY",
@@ -139,6 +139,7 @@ class OTP:
 "FORE",  "FORK",  "FORM",  "FORT",  "FOSS",  "FOUL",  "FOUR",  "FOWL",
 "FRAU",  "FRAY",  "FRED",  "FREE",  "FRET",  "FREY",  "FROG",  "FROM",
 "FUEL",  "FULL",  "FUME",  "FUND",  "FUNK",  "FURY",  "FUSE",  "FUSS",
+
 "GAFF",  "GAGE",  "GAIL",  "GAIN",  "GAIT",  "GALA",  "GALE",  "GALL",
 "GALT",  "GAME",  "GANG",  "GARB",  "GARY",  "GASH",  "GATE",  "GAUL",
 "GAUR",  "GAVE",  "GAWK",  "GEAR",  "GELD",  "GENE",  "GENT",  "GERM",
@@ -187,6 +188,7 @@ class OTP:
 "LUST",  "LYLE",  "LYNN",  "LYON",  "LYRA",  "MACE",  "MADE",  "MAGI",
 "MAID",  "MAIL",  "MAIN",  "MAKE",  "MALE",  "MALI",  "MALL",  "MALT",
 "MANA",  "MANN",  "MANY",  "MARC",  "MARE",  "MARK",  "MARS",  "MART",
+
 "MARY",  "MASH",  "MASK",  "MASS",  "MAST",  "MATE",  "MATH",  "MAUL",
 "MAYO",  "MEAD",  "MEAL",  "MEAN",  "MEAT",  "MEEK",  "MEET",  "MELD",
 "MELT",  "MEMO",  "MEND",  "MENU",  "MERT",  "MESH",  "MESS",  "MICE",
@@ -235,6 +237,7 @@ class OTP:
 "SULK",  "SUMS",  "SUNG",  "SUNK",  "SURE",  "SURF",  "SWAB",  "SWAG",
 "SWAM",  "SWAN",  "SWAT",  "SWAY",  "SWIM",  "SWUM",  "TACK",  "TACT",
 "TAIL",  "TAKE",  "TALE",  "TALK",  "TALL",  "TANK",  "TASK",  "TATE",
+
 "TAUT",  "TEAL",  "TEAM",  "TEAR",  "TECH",  "TEEM",  "TEEN",  "TEET",
 "TELL",  "TEND",  "TENT",  "TERM",  "TERN",  "TESS",  "TEST",  "THAN",
 "THAT",  "THEE",  "THEM",  "THEN",  "THEY",  "THIN",  "THIS",  "THUD",
@@ -259,64 +262,39 @@ class OTP:
 "WITH",  "WOLF",  "WONT",  "WOOD",  "WOOL",  "WORD",  "WORE",  "WORK",
 "WORM",  "WORN",  "WOVE",  "WRIT",  "WYNN",  "YALE",  "YANG",  "YANK",
 "YARD",  "YARN",  "YAWL",  "YAWN",  "YEAH",  "YEAR",  "YELL",  "YOGA",
-"YOKE"]
-    bkey = ["1","2","3","4","5","6","7","8"]
-    protocol = ".onion"
-
-    # Give it 80 bits and get 7 words + 1 number separated by "-"
-    # and a trailing .onion
+"YOKE")
+    bkey = ("1","2","3","4","5","6","7","8")
+    
     def to_word(self,data):
         buf = bytearray(data)
-        strbuf = []
+        
+        print len(buf)
+        a = (3,6,7,4,7,10,5)
+        b = (5,2,7,4,1,9,3)
+        j = 0
         x = {}
-        # This used to be some complicated boolean aritmetic
-        # now it simply works on the 80 bits as if it where
-        # a 80 character binary string
+        for i in range(0,6):
+            if(i == 2):
+                x[i] = buf[j] << a[i] &((2^(11-a[j])-1) << a[i]) | b[3] << 1 | buf[3+1] >> b[i]
+                j = j + 2
+            elif(i == 5):
+                x[i] = buf[j] << a[i] & ((2^(11-a[i])-1) << a[i]) | buf[7] << 2 | buf[7+1] >> b[i]
+                j = j + 2
+            elif(i == 6):
+                x[i] = buf[9] & ((2^6-1) << 3)
+            else:
+                print "%d %d" % (i,j)
+                x[i] = buf[j] << a[i] & ((2^(11-a[i])-1) << a[i]) | buf[j+1] >> b[i]
+                j = j + 1
 
-        # Convert the 80 bits into a 80 char string
-        for i in range(0,len(buf)):
-            tmp = str(bin(buf[i])).split('b')[1]
-            # add zero's to make every byte a 8 char string
-            strbuf.append("0"*(8-len(tmp))+tmp)
-
-        string = ''.join(strbuf)
+        for i in range(0,10):
+            print str(bin(buf[i])).split('b')[1],
+        print "\n"
     
-        # Split the string into 7 pieces long 11 chars
-        # and convert the binary string into an int
-        for i in range(0, 8):
-            x[i] = int(string[i*11:i*11+11],2)
-
-        # 3 bits of remainder
-        x[8] = int(string[80-3:80],2)
-        url = []
-        
-        # Get the word corresponding to the 7 11 bits
         for i in range(0,7):
-            url.append(self.skey[x[i]].lower()+"-")
-        
-        # Get the secondary key corresponding the the 3 bit
-        url.append(self.bkey[x[8]]+self.protocol)
-        
-        return ''.join([url[i] for i in range(0,8)])
-    
-    # Give it the word url and recieve 80 bits of data
-    def from_word(self, data):
-        buf = data.split('-')
-        y = []
-        # this does the reverse of the function above
-        for i in range(0, 7):
-            # XXX just cause I'm italian doesn't mean I enjoy spaghetti code...
-            tmp = str(bin(self.skey.index(buf[i].upper())).split('b')[1])
-            idx = str(0)*(11-len(tmp)) + tmp
-            y.append(idx)
+            print str(bin(x[i])).split('b')[1],
+        print "\n"
 
-        # XXX see above comment 
-        tmp = str(bin(self.bkey.index(buf[7].split('.')[0].upper())).split('b')[1])
-        y.append(str(0)*(3-len(tmp))+tmp)
-        string = ''.join(y)
-        z = []
-        
-        for i in range(0, 10):
-            z.append(chr(int(string[i*8:i*8+8],2)))
-        return ''.join(z)
 
+a = otp()
+a.to_word("aabbccddee")     
